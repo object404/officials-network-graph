@@ -1,0 +1,444 @@
+[
+    {
+        "region": "NATIONAL CAPITAL REGION",
+        "poverty": 1.1,
+        "provinces": [
+            {
+                "province": "NCR, CITY OF MANILA, FIRST DISTRICT",
+                "poverty": 1.6
+            },
+            {
+                "province": "NCR, SECOND DISTRICT",
+                "poverty": 0.9
+            },
+            {
+                "province": "NCR, THIRD DISTRICT",
+                "poverty": 1.6
+            },
+            {
+                "province": "NCR, FOURTH DISTRICT",
+                "poverty": 0.9
+            }
+        ]
+    },
+    {
+        "region": "CORDILLERA ADMINISTRATIVE REGION",
+        "poverty": 4.4,
+        "provinces": [
+            {
+                "province": "ABRA",
+                "poverty": 9.4
+            },
+            {
+                "province": "APAYAO",
+                "poverty": 4.0
+            },
+            {
+                "province": "BENGUET",
+                "poverty": 2.5
+            },
+            {
+                "province": "IFUGAO",
+                "poverty": 4.6
+            },
+            {
+                "province": "KALINGA",
+                "poverty": 2.6
+            },
+            {
+                "province": "MOUNTAIN PROVINCE",
+                "poverty": 10.5
+            }
+       ]
+    },
+    {
+        "region": "REGION I",
+        "poverty": 8.4,
+        "provinces": [
+            {
+                "province": "ILOCOS NORTE",
+                "poverty": 0.3
+            },
+            {
+                "province": "ILOCOS SUR",
+                "poverty": 5.2
+            },
+            {
+                "province": "LA UNION",
+                "poverty": 6.3
+            },
+            {
+                "province": "PANGASINAN",
+                "poverty": 11.4
+            }
+       ]
+    },
+    {
+        "region": "REGION II",
+        "poverty": 7.2,
+        "provinces": [
+            {
+                "province": "BATANES",
+                "poverty": 3.3
+            },
+            {
+                "province": "CAGAYAN",
+                "poverty": 5.7
+            },
+            {
+                "province": "ISABELA",
+                "poverty": 8.4
+            },
+            {
+                "province": "NUEVA VIZCAYA",
+                "poverty": 7.3
+            },
+            {
+                "province": "QUIRINO",
+                "poverty": 6.7
+            }
+       ]
+    },
+    {
+        "region": "REGION III",
+        "poverty": 5.7,
+        "provinces": [
+            {
+                "province": "AURORA",
+                "poverty": 11.0
+            },
+            {
+                "province": "BATAAN",
+                "poverty": 6.6
+            },
+            {
+                "province": "BULACAN",
+                "poverty": 6.0
+            },
+            {
+                "province": "NUEVA ECIJA",
+                "poverty": 6.9
+            },
+            {
+                "province": "PAMPANGA",
+                "poverty": 1.0
+            },
+            {
+                "province": "TARLAC",
+                "poverty": 6.7
+            },
+            {
+                "province": "ZAMBALES",
+                "poverty": 11.8
+            }
+       ]
+    },
+    {
+        "region": "REGION IV-A",
+        "poverty": 5.3,
+        "provinces": [
+            {
+                "province": "BATANGAS",
+                "poverty": 4.9
+            },
+            {
+                "province": "CAVITE",
+                "poverty": 4.3
+            },
+            {
+                "province": "LAGUNA",
+                "poverty": 5.4
+            },
+            {
+                "province": "QUEZON",
+                "poverty": 6.9
+            },
+            {
+                "province": "RIZAL",
+                "poverty": 5.6
+            }
+       ]
+    },
+    {
+        "region": "REGION IV-B",
+        "poverty": 16.3,
+        "provinces": [
+            {
+                "province": "MARINDUQUE",
+                "poverty": 8.5
+            },
+            {
+                "province": "OCCIDENTAL MINDORO",
+                "poverty": 20.6
+            },
+            {
+                "province": "ORIENTAL MINDORO",
+                "poverty": 14.1
+            },
+            {
+                "province": "PALAWAN",
+                "poverty": 15.8
+            },
+            {
+                "province": "ROMBLON",
+                "poverty": 23.0
+            }
+       ]
+    },
+    {
+        "region": "REGION V",
+        "poverty": 20.3,
+        "provinces": [
+            {
+                "province": "ALBAY",
+                "poverty": 18.1
+            },
+            {
+                "province": "CAMARINES NORTE",
+                "poverty": 17.7
+            },
+            {
+                "province": "CAMARINES SUR",
+                "poverty": 22.4
+            },
+            {
+                "province": "CATANDUANES",
+                "poverty": 23.5
+            },
+            {
+                "province": "MASBATE",
+                "poverty": 12.9
+            },
+            {
+                "province": "SORSOGON",
+                "poverty": 28.4
+            }
+       ]
+    },
+    {
+        "region": "REGION VI",
+        "poverty": 9.8,
+        "provinces": [
+            {
+                "province": "AKLAN",
+                "poverty": 3.1
+            },
+            {
+                "province": "ANTIQUE",
+                "poverty": 13.8
+            },
+            {
+                "province": "CAPIZ",
+                "poverty": 9.8
+            },
+            {
+                "province": "GUIMARAS",
+                "poverty": 3.8
+            },
+            {
+                "province": "ILOILO",
+                "poverty": 11.1
+            },
+            {
+                "province": "NEGROS OCCIDENTAL",
+                "poverty": 22.1
+            }
+       ]
+    },
+    {
+        "region": "REGION VII",
+        "poverty": 12.3,
+        "provinces": [
+            {
+                "province": "BOHOL",
+                "poverty": 14.8
+            },
+            {
+                "province": "CEBU",
+                "poverty": 11.7
+            },
+            {
+                "province": "NEGROS ORIENTAL",
+                "poverty": 25.1
+            },
+            {
+                "province": "SIQUIJOR",
+                "poverty": 3.5
+            }
+       ]
+    },
+    {
+        "region": "REGION VIII",
+        "poverty": 20.3,
+        "provinces": [
+            {
+                "province": "BILIRAN",
+                "poverty": 8.5
+            },
+            {
+                "province": "EASTERN SAMAR",
+                "poverty": 24.7
+            },
+            {
+                "province": "LEYTE",
+                "poverty": 20.6
+            },
+            {
+                "province": "NORTHERN SAMAR",
+                "poverty": 21.8
+            },
+            {
+                "province": "SOUTHERN LEYTE",
+                "poverty": 7.1
+            },
+            {
+                "province": "SAMAR",
+                "poverty": 24.9
+            }
+       ]
+    },
+    {
+        "region": "REGION IX",
+        "poverty": 24.2,
+        "provinces": [
+            {
+                "province": "ZAMBOANGA DEL NORTE",
+                "poverty": 37.7
+            },
+            {
+                "province": "ZAMBOANGA DEL SUR",
+                "poverty": 20.0
+            },
+            {
+                "province": "ZAMBOANGA SIBUGAY",
+                "poverty": 17.8
+            }
+       ]
+    },
+    {
+        "region": "REGION X",
+        "poverty": 18.4,
+        "provinces": [
+            {
+                "province": "BUKIDNON",
+                "poverty": 20.2
+            },
+            {
+                "province": "CAMIGUIN",
+                "poverty": 9.4
+            },
+            {
+                "province": "LANAO DEL NORTE",
+                "poverty": 25.2
+            },
+            {
+                "province": "MISAMIS OCCIDENTAL",
+                "poverty": 22.6
+            },
+            {
+                "province": "MISAMIS ORIENTAL",
+                "poverty": 12.0
+            }
+       ]
+    },
+    {
+        "region": "REGION XI",
+        "poverty": 11.3,
+        "provinces": [
+            {
+                "province": "DAVAO DEL NORTE",
+                "poverty": 7.3
+            },
+            {
+                "province": "DAVAO DEL SUR",
+                "poverty": 9.1
+            },
+            {
+                "province": "DAVAO ORIENTAL",
+                "poverty": 29.1
+            },
+            {
+                "province": "COMPOSTELA VALLEY",
+                "poverty": 7.1
+            },
+            {
+                "province": "DAVAO OCCIDENTAL",
+                "poverty": 19.8
+            }
+       ]
+    },
+    {
+        "region": "REGION XII",
+        "poverty": 17.0,
+        "provinces": [
+            {
+                "province": "COTABATO",
+                "poverty": 18.0
+            },
+            {
+                "province": "SARANGANI",
+                "poverty": 23.1
+            },
+            {
+                "province": "SOUTH COTABATO",
+                "poverty": 10.1
+            },
+            {
+                "province": "SULTAN KUDARAT",
+                "poverty": 26.4
+            }
+       ]
+    },
+    {
+        "region": "REGION XIII",
+        "poverty": 14.9,
+        "provinces": [
+            {
+                "province": "AGUSAN DEL NORTE",
+                "poverty": 14.7
+            },
+            {
+                "province": "AGUSAN DEL SUR",
+                "poverty": 23.4
+            },
+            {
+                "province": "SURIGAO DEL NORTE",
+                "poverty": 6.8
+            },
+            {
+                "province": "SURIGAO DEL SUR",
+                "poverty": 10.3
+            },
+            {
+                "province": "DINAGAT ISLANDS",
+                "poverty": 23.1
+            }
+       ]
+    },
+    {
+        "region": "Autonomous Region in Muslim Mindanao",
+        "poverty": 23.5,
+        "provinces": [
+            {
+                "province": "BASILAN",
+                "poverty": 33.7
+            },
+            {
+                "province": "LANAO DEL SUR",
+                "poverty": 12.1
+            },
+            {
+                "province": "MAGUINDANAO",
+                "poverty": 30.4
+            },
+            {
+                "province": "SULU",
+                "poverty": 13.0
+            },
+            {
+                "province": "TAWI-TAWI",
+                "poverty": 32.3
+            }
+       ]
+    }
+]

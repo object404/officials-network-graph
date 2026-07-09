@@ -1,0 +1,440 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.roboto-1 {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "width" 100;
+}
+
+body {
+    background: #000000;
+}
+
+#container {
+    cursor: pointer;
+    width: 1000px;
+    height: 800px;
+    background: #000000;
+}
+
+#labelRegionSelect {
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+}
+
+#dropdownRegionHolder {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 14px;
+}
+
+#btnResetHolder {
+    position: absolute;
+    left: 30px;
+    top: 75px;
+    font-weight: bold;
+}
+
+#layoutIndicator {
+    position: absolute;
+    left: 30px;
+    top: 120px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+}
+
+#simulationToggleHolder {
+    position: absolute;
+    left: 30px;
+    top: 140px;
+    font-weight: bold;
+}
+
+#simulationToggle,
+#noverlapToggle,
+#btnReset {
+    padding: 5px 10px;
+    border-radius: 7px;
+}
+
+#noverlapToggleHolder {
+    position: absolute;
+    left: 170px;
+    top: 140px;
+    font-weight: bold;
+}
+
+#searchHolder {
+    background-color: #333333;
+    position: absolute;
+    left: 162px;
+    top: 75px;
+    width: 170px;
+    background-image: url('/search.svg');
+    background-size: 14px;
+    background-position: 145px center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    overflow: hidden;
+}
+
+#searchHolder:hover {
+    background-color: #ffffff;
+    background-image: url('/search2.svg');
+    border-color: #333333;
+}
+
+#search {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 20px 5px 10px;
+}
+
+#search:hover {
+    color: #333333;
+}
+
+#btnInfo {
+    position: absolute;
+    bottom: 160px;
+    left: 30px;
+    width: 90px;
+}
+
+#txtInfo {
+    background-color: #333333;
+    border-radius: 13px;
+    border: 2px solid #ffffff;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 5px 20px 5px 37px;
+}
+
+#questionMark {
+    background-color: #333333;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 24px;
+    height: 24px;
+    border-radius: 13px;
+    border: 2px solid #ffffff;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: center;
+    line-height: 24px;
+}
+
+#btnInfo:hover #txtInfo,
+#btnInfo:hover #questionMark {
+    background-color: #ffffff;
+    border-color: #333333;
+    color: #333333;
+}
+
+#legendHolder {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    color: #000000;
+    background-color: #444444;
+    font-size: 9px;
+    border-radius: 8px;
+}
+
+#legendLabel {
+    color: #ffffff;
+    margin: 7px;
+    text-align: center;
+}
+
+#legendFirstName {
+    background-color: #0066ff;
+    margin: 7px;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+#legendLastName {
+    background-color: #ff0000;
+    margin: 7px;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+#legendRegion {
+    background-color: #00ff00;
+    margin: 7px;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+#dataSourceLink {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    color: #fff;
+}
+
+#lastNameSearchHolder {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 280px;
+    text-align: center;
+    display: none;
+}
+
+#lastNameSearchBG {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(64, 64, 64, 0.7);
+    border: 2px solid #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#lastNameSearchLabel {
+    color: #ffffff;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 10px;
+    width: 350px;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute
+}
+
+#searchBoxHolder {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 30px;
+}
+
+#lastNameHolder {
+    position: absolute;
+    left: 65px;
+    top: 60px;
+    height: 210px;
+    width: 220px;
+    color: #ffffff;
+    font-size: 12px;
+    overflow-y: scroll;
+    line-height: 18px;
+    text-align: left;
+}
+
+#infoPopup {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: 30%;
+    left: 50%;
+    top: 50%;
+    cursor: pointer;
+}
+
+/* Extra Small Screens (Mobile) */
+@media only screen and (max-width: 576px) {
+
+    /* CSS rules specific for extra small screens */
+    #infoPopup {
+        width: 80%;
+        /* Adjust layout for full-width on small screens */
+    }
+}
+
+/* Small Screens (Tablets) */
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+
+    /* CSS rules specific for small screens */
+    #infoPopup {
+        width: 70%;
+        /* Adjust layout for smaller container width on tablets */
+        font-size: 10px;
+    }
+}
+
+/* Medium Screens (Large Tablets) */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    /* CSS rules specific for medium screens */
+    #infoPopup {
+        width: 60%;
+        /* Adjust layout for moderate container width on large tablets */
+        font-size: 16px;
+    }
+}
+
+/* Large Screens (Desktops) */
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+
+    /* CSS rules specific for large screens */
+    #infoPopup {
+        width: 50%;
+        /* Adjust layout for narrower container width on desktops */
+        font-size: 20px;
+    }
+}
+
+/* Extra Large Screens (Large Desktops) */
+@media only screen and (min-width: 1441px) {
+
+    /* CSS rules specific for extra large screens */
+    #infoPopup {
+        width: 40%;
+        /* Adjust layout for even narrower container width on large desktops */
+        font-size: 24px;
+    }
+}
+
+#infoPopupBG {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(64, 64, 64, 0.7);
+    border: 2px solid #ffffff;
+    border-radius: 15px;
+}
+
+#infoPopupContent {
+    position: relative;
+    top: 12px;
+    left: 0;
+    width: 92%;
+    height: 82%;
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
+    font-size: 12px;
+    overflow-y: scroll;
+    line-height: 18px;
+}
+
+.headerSurname {
+    color: #ffff00;
+}
+
+.headerData {
+    color: #ffff00;
+}
+
+.fat {
+    color: #ff6600;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+#clickShield {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.clickableName {
+    cursor: pointer;
+}
+
+/* LOADING SPINNER */
+@keyframes spinnerArc {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+#spinnerHolder {
+    position: absolute;
+    left: 50%;
+    top: 360px;
+    width: 37px;
+    height: 37px;
+    transform: translateX(-50%);
+}
+
+.spinnerArc div {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 10px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+}
+
+.spinnerArc div {
+    animation: spinnerArc 1s linear infinite;
+    top: 50px;
+    left: 50px
+}
+
+.spinnerMain {
+    width: 37px;
+    height: 37px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+}
+
+.spinnerArc {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(0.37);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+}
+
+.spinnerArc div {
+    box-sizing: content-box;
+}
+
+#listLimitations {
+    padding-left: 20px;
+}
+
+#dropdownRegion, #btnReset, #simulationToggle, #noverlapToggle {
+    cursor: pointer;
+}

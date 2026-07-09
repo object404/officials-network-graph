@@ -1,0 +1,15 @@
+node_modules/
+dist/
+notes.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.suo
+*.user
+
+# Vite
+*.local
