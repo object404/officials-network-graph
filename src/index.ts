@@ -549,7 +549,7 @@ function popupInfoHelp() {
     <p><span class="headerData">Limitations:</span></p>
     <ul id="listLimitations" type="1">
         <li>Data may not capture all political relationships or nuances.</li>
-        <li>Consanguinity is tracked beyond family name, especially in cases where political families intermarry.</li>
+        <li>Consanguinity is not tracked beyond family name, especially in cases where political families intermarry.</li>
         <li>Individuals in the same region may share the same family name, but may not be related.</li>
         <li>Data only tracks positions in local elections, and does not include national offices, party-list representatives, and Barangay officials.</li>
     </ul>
