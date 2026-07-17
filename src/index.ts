@@ -221,8 +221,9 @@ async function loadPoverty() {
                 const winner = yearWinners[j];
                 if (winner === undefined) continue;
                 dynasty[politicianIndex] = {
-                    'Last_Name': winner['last_name'],
                     'First_Name': winner['first_name'],
+                    'Last_Name': winner['last_name'],
+                    'Party': winner['party'],
                     'Region': winner['region'],
                     'Province': winner['province'],
                     'Municipality_City': winner['city'],
@@ -255,7 +256,7 @@ function ensureProvince(provinceName: string, municipality: string, index: numbe
 }
 
 function initFirstnameEntry(lastName: string, firstName: string, index: number, region: string, provinceName: string) {
-    graphData[lastName][firstName] = { ids: [{ index, id: totalNodes, region, province: provinceName }] };
+    graphData[lastName][firstName] = { ids: [{ index: index, id: totalNodes, region: region, province: provinceName, positions: [] }] };
 }
 
 function processGraphData() {
@@ -269,7 +270,7 @@ function processGraphData() {
     parsedLastnames = 0;
 
     let i = 0;
-    for (i = 0; i < politicianCount; i++) {
+    for (i = 0; i < politicianIndex; i++) {
         const entry = dynasty[i]!;
         if (entry['Region'] !== selectedRegion) continue;
 
@@ -278,6 +279,10 @@ function processGraphData() {
         const province = entry['Province'] as string;
         const municipality = entry['Municipality_City'] as string;
 
+        if (entry['Last_Name'] == 'IMPERIAL' && entry['First_Name'] == 'DINO') {
+            console.log(entry);
+        }
+
         if (graphData[lastName] === undefined) {
             graphData[lastName] = { index: i, id: totalNodes, count: lastnameCount };
             totalNodes++;
@@ -285,17 +290,33 @@ function processGraphData() {
 
             initFirstnameEntry(lastName, firstName, i, entry['Region'], province);
             ensureProvince(province, municipality, i);
+            graphData[lastName][firstName].ids[0].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
             firstnameCount++;
             totalNodes++;
         } else if (graphData[lastName][firstName] === undefined) {
             initFirstnameEntry(lastName, firstName, i, entry['Region'], province);
             ensureProvince(province, municipality, i);
+            graphData[lastName][firstName].ids[0].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
             firstnameCount++;
             totalNodes++;
         } else {
-            graphData[lastName][firstName].ids.push({ index: i, id: totalNodes, region: entry['Region'], province });
+            graphData[lastName][firstName].ids[graphData[lastName][firstName].ids.length - 1].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
             firstnameCount++;
             totalNodes++;
+        }
+    }
+
+    // Sort graph data
+    for (const lastName in graphData) {
+        let firstNamesSorted = Object.fromEntries(
+            Object.entries(graphData[lastName]).sort((a, b) => a[0].localeCompare(b[0]))
+        );
+        graphData[lastName] = firstNamesSorted;
+        for (const firstName in graphData[lastName]) {
+            if (firstName === 'index' || firstName === 'id' || firstName === 'count') continue;
+            graphData[lastName][firstName].ids[0].positions.sort(
+                (a: { year: string }, b: { year: string }) => Number(a.year) - Number(b.year)
+            );
         }
     }
 
@@ -529,11 +550,26 @@ function getNodeData(event: { node: string }) {
             popupContents += field('Name', d['First_Name'] + ' ' + d['Last_Name']);
             if (d['fat'] == 1) popupContents += ' <span class="fat">*</span>';
             popupContents += '<br />';
+
+            for (let i = 0; i < graphData[d['Last_Name']][d['First_Name']].ids.length; i++) {
+                const pos = graphData[d['Last_Name']][d['First_Name']].ids[i].positions;
+                for (let j = 0; j < pos.length; j++) {
+                    if (pos[j]['municipality'] === '' || pos[j]['municipality'] === undefined) {
+                        popupContents += field(pos[j]['year'], pos[j]['party'] + ' - ' + pos[j]['position'] + ', ' + pos[j]['province']);
+                    }
+                    else {
+                        popupContents += field(pos[j]['year'], pos[j]['party'] + ' - ' + pos[j]['position'] + ', ' + pos[j]['municipality'] + ', ' + pos[j]['province']);
+                    }
+                }
+                popupContents += '<br /><br />';
+            }
+            /*
             popupContents += field('Party', d['Party']);
             popupContents += field('Position', d['Position'] + ', ' + d['Year']);
             popupContents += field('Municipality/City', d['Municipality_City']);
             popupContents += field('Province', d['Province']);
             popupContents += field('Region', d['Region']);
+            */
             break;
 
         case 'lastname':
@@ -541,9 +577,22 @@ function getNodeData(event: { node: string }) {
             for (const firstnameId of nodeData['firstnames']) {
                 const fnAttrs = graph.getNodeAttributes(firstnameId);
                 const fn = dynasty[Number(fnAttrs['index'])]!;
-                popupContents += ` -${fnAttrs['label']} ${d['Last_Name']},`;
-                if (fn['fat'] == 1) popupContents += '<span class="fat">*</span>';
-                popupContents += ` ${fn['Position']}, ${fn['Year']}: ${fn['Municipality_City']}, ${fn['Province']}<br />`;
+                popupContents += ` -${fnAttrs['label']} ${d['Last_Name']}`;
+                if (fn['fat'] == 1) popupContents += '&nbsp;<span class="fat">*</span>';
+                popupContents += '<br />';
+                for (let i = 0; i < graphData[d['Last_Name']][fnAttrs['label']].ids.length; i++) {
+                    const pos = graphData[d['Last_Name']][fnAttrs['label']].ids[i].positions;
+                    for (let j = 0; j < pos.length; j++) {
+                        if (pos[j]['municipality'] === '' || pos[j]['municipality'] === undefined) {
+                            popupContents += ` ${pos[j]['year']}: ${pos[j]['party']} - ${pos[j]['position']}, ${pos[j]['province']}<br />`;
+                        }
+                        else {
+                            popupContents += ` ${pos[j]['year']}: ${pos[j]['party']} - ${pos[j]['position']}, ${pos[j]['municipality']}, ${pos[j]['province']}<br />`;
+                        }
+                    }
+                }
+                popupContents += '<br />';
+                // popupContents += ` ${fn['Position']}, ${fn['Year']}: ${fn['Municipality_City']}, ${fn['Province']}<br />`;
             }
             break;
 
@@ -662,7 +711,7 @@ function main() {
     politicianCount = dynasty.length;
     totalPoliticianCount += politicianCount;
     for (let i = 0; i < winners.length; i++) {
-        totalPoliticianCount += winners[i].length;
+        totalPoliticianCount += winners[i]!.length;
     }
     processDynasty();
 }

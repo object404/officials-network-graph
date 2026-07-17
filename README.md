@@ -24,9 +24,6 @@ npm run deploy
 
 The Cloudflare deployment serves the Vite build output from ```./dist``` and uses SPA fallback handling for direct route loads.
 
-### To Fix
-- Need to turn surname information popup name entry positions into array to list all the years official was elected, not just 1st one.
-
 ### Data Sources
 
 - 2004-2016 Election Data: [Ateneo Policy Center (APC) Political Dynasty Dataset](https://www.inclusivedemocracy.ph/data-and-infographics)
