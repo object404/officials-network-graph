@@ -22,3 +22,9 @@ npm run deploy
 
 The Cloudflare deployment serves the Vite build output from ```./dist``` and uses SPA fallback handling for direct route loads.
 
+### Data Sources
+
+2004-2016 Election Data: [Ateneo Policy Center (APC) Political Dynasty Dataset](https://www.inclusivedemocracy.ph/data-and-infographics)
+2019-2025 Election Data: [Open Halalan: The Philippine National and Local Election Dataset](https://robertrleung.github.io/OpenHalalan/)
+Poverty Data: [Philippine Statistics Authority](https://openstat.psa.gov.ph/PXWeb/pxweb/en/DB/DB__1E__FY/?tablelist=true)
+

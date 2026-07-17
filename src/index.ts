@@ -24,7 +24,11 @@ const mapRadius = 1000;
 
 let dynasty: Record<string, any>[] = [];
 let poverty: Record<string, any>[] = [];
-const regions = [
+let electionYears: string[] = ['2019', '2022', '2025'];
+let winnersByYear: string[] = ['winners_2019.csv.gz', 'winners_2022.csv.gz', 'winners_2025.csv.gz'];
+let winners: Record<string, any>[][] = []; // Holders of winners data for each election year
+
+const regions: string[] = [
     'NATIONAL CAPITAL REGION',
     'REGION I',
     'REGION II',
@@ -44,11 +48,13 @@ const regions = [
     'Autonomous Region in Muslim Mindanao',
 ];
 
-let selectedRegion = 'NATIONAL CAPITAL REGION';
+let selectedRegion: string = 'NATIONAL CAPITAL REGION';
 let provinces: Record<string, any> = {};
 let graphData: Record<string, any> = {};
 
 let politicianCount = 0;
+let politicianIndex = 0;
+let totalPoliticianCount = 0;
 let totalNodes = 0;
 let lastnameCount = 0;
 let firstnameCount = 0;
@@ -129,15 +135,45 @@ function parseCSVToJSON(csvText: string): Record<string, string>[] {
 
 // --- DATA LOADING ---
 
+// Load winners CSV files for each election year
+async function loadWinnerCSV(index: number): Promise<Record<string, string>[] | undefined> {
+    try {
+        const url = winnersByYear[index];
+        if (url === undefined) throw new Error(`No winners CSV configured for index ${index}`);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        let csvText: string;
+        if (url.endsWith('.gz') && response.headers.get('content-encoding') !== 'gzip') {
+            // Raw gzip bytes — the server didn't set Content-Encoding, so the
+            // browser did not auto-decompress; we must do it ourselves.
+            if (!response.body) throw new Error(`No response body for gzipped file: ${url}`);
+            const ds = new DecompressionStream('gzip');
+            csvText = await new Response(response.body.pipeThrough(ds)).text();
+        } else {
+            // Either not gzipped, or the server sent Content-Encoding: gzip
+            // and the browser already decompressed the body transparently.
+            csvText = await response.text();
+        }
+        return parseCSVToJSON(csvText);
+    } catch (error) {
+        console.error('Error loading CSV:', error);
+    }
+}
+
 async function loadDynastyCSV(url: string): Promise<Record<string, string>[] | undefined> {
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         let csvText: string;
-        if (url.endsWith('.gz')) {
+        if (url.endsWith('.gz') && response.headers.get('content-encoding') !== 'gzip') {
+            // Raw gzip bytes — the server didn't set Content-Encoding, so the
+            // browser did not auto-decompress; we must do it ourselves.
+            if (!response.body) throw new Error(`No response body for gzipped file: ${url}`);
             const ds = new DecompressionStream('gzip');
-            csvText = await new Response(response.body!.pipeThrough(ds)).text();
+            csvText = await new Response(response.body.pipeThrough(ds)).text();
         } else {
+            // Either not gzipped, or the server sent Content-Encoding: gzip
+            // and the browser already decompressed the body transparently.
             csvText = await response.text();
         }
         return parseCSVToJSON(csvText);
@@ -169,6 +205,29 @@ async function loadPoverty() {
         poverty = await response.json();
         const data = await loadDynastyCSV(csvFile);
         dynasty = data ?? [];
+
+        politicianIndex = dynasty.length;
+
+        // Load winners CSV files for each election year 2019 onwards
+        for (let i = 0; i < winnersByYear.length; i++) {
+            const winnerData = await loadWinnerCSV(i);
+            winners[i] = winnerData ?? [];
+
+            // Map 2019+ winner data to dynasty array
+            for (let j = 0; j < winners[i]!.length; j++) {
+                dynasty[politicianIndex] = {
+                    'Last_Name': winners[i][j]['last_name'],
+                    'First_Name': winners[i][j]['first_name'],
+                    'Region': winners[i][j]['region'],
+                    'Province': winners[i][j]['province'],
+                    'Municipality_City': winners[i][j]['city'],
+                    'Position': winners[i][j]['position'],
+                    'Year': electionYears[i],
+                };
+                politicianIndex ++;
+            }
+        }
+
         $('#spinnerHolder').css('display', 'none');
         popupInfoHelp();
         main();
@@ -203,8 +262,10 @@ function processGraphData() {
     totalNodes = 0;
     parsedNodes = 0;
     parsedLastnames = 0;
+    let politicianIndex = politicianCount;
 
-    for (let i = 0; i < politicianCount; i++) {
+    let i = 0;
+    for (i = 0; i < politicianCount; i++) {
         const entry = dynasty[i]!;
         if (entry['Region'] !== selectedRegion) continue;
 
@@ -579,7 +640,10 @@ function addListeners() {
 
 function main() {
     politicianCount = dynasty.length;
-    console.log("politicians:" + politicianCount);
+    totalPoliticianCount += politicianCount;
+    for (let i = 0; i < winners.length; i++) {
+        totalPoliticianCount += winners[i].length;
+    }
     processDynasty();
 }
 
