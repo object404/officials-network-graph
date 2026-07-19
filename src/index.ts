@@ -257,7 +257,7 @@ function ensureProvince(provinceName: string, municipality: string, index: numbe
 }
 
 function initFirstnameEntry(lastName: string, firstName: string, index: number, region: string, provinceName: string) {
-    graphData[lastName][firstName] = { ids: [{ index: index, id: totalNodes, region: region, province: provinceName, positions: [] }] };
+    graphData[lastName][firstName] = { index: index, id: totalNodes, region: region, province: provinceName, positions: [] };
 }
 
 function processGraphData() {
@@ -291,17 +291,17 @@ function processGraphData() {
 
             initFirstnameEntry(lastName, firstName, i, entry['Region'], province);
             ensureProvince(province, municipality, i);
-            graphData[lastName][firstName].ids[0].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
+            graphData[lastName][firstName].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
             firstnameCount++;
             totalNodes++;
         } else if (graphData[lastName][firstName] === undefined) {
             initFirstnameEntry(lastName, firstName, i, entry['Region'], province);
             ensureProvince(province, municipality, i);
-            graphData[lastName][firstName].ids[0].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
+            graphData[lastName][firstName].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
             firstnameCount++;
             totalNodes++;
         } else {
-            graphData[lastName][firstName].ids[graphData[lastName][firstName].ids.length - 1].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
+            graphData[lastName][firstName].positions.push({ party: entry['Party'], position: entry['Position'], municipality: municipality, province: province, year: entry['Year'] });
             firstnameCount++;
             totalNodes++;
         }
@@ -315,7 +315,7 @@ function processGraphData() {
         graphData[lastName] = firstNamesSorted;
         for (const firstName in graphData[lastName]) {
             if (firstName === 'index' || firstName === 'id' || firstName === 'count') continue;
-            graphData[lastName][firstName].ids[0].positions.sort(
+            graphData[lastName][firstName].positions.sort(
                 (a: { year: string }, b: { year: string }) => Number(a.year) - Number(b.year)
             );
         }
@@ -352,11 +352,11 @@ function populateGraph() {
         Object.keys(graphData[key]).forEach(subKey => {
             if (subKey === 'index' || subKey === 'id' || subKey === 'count') return;
 
-            const firstnameId = graphData[key][subKey].ids[0].id;
+            const firstnameId = graphData[key][subKey].id;
             const fnAngle = Math.random() * 2 * Math.PI;
             const fnRadius = Object.keys(graphData[key]).length / 3 * 20000;
             graph.addNode(firstnameId, {
-                index: graphData[key][subKey].ids[0].index, type: 'border',
+                index: graphData[key][subKey].index, type: 'border',
                 nodeType: 'firstname', label: subKey,
                 x: nodeX + fnRadius * Math.cos(fnAngle),
                 y: nodeY + fnRadius * Math.sin(fnAngle),
@@ -552,25 +552,17 @@ function getNodeData(event: { node: string }) {
             if (d['fat'] == 1) popupContents += ' <span class="fat">*</span>';
             popupContents += '<br />';
 
-            for (let i = 0; i < graphData[d['Last_Name']][d['First_Name']].ids.length; i++) {
-                const pos = graphData[d['Last_Name']][d['First_Name']].ids[i].positions;
-                for (let j = 0; j < pos.length; j++) {
-                    if (pos[j]['municipality'] === '' || pos[j]['municipality'] === undefined) {
-                        popupContents += field(pos[j]['year'], pos[j]['party'] + ' - ' + pos[j]['position'] + ', ' + pos[j]['province']);
-                    }
-                    else {
-                        popupContents += field(pos[j]['year'], pos[j]['party'] + ' - ' + pos[j]['position'] + ', ' + pos[j]['municipality'] + ', ' + pos[j]['province']);
-                    }
+            const pos = graphData[d['Last_Name']][d['First_Name']].positions;
+            for (let j = 0; j < pos.length; j++) {
+                if (pos[j]['municipality'] === '' || pos[j]['municipality'] === undefined) {
+                    popupContents += field(pos[j]['year'], pos[j]['party'] + ' - ' + pos[j]['position'] + ', ' + pos[j]['province']);
                 }
-                popupContents += '<br /><br />';
+                else {
+                    popupContents += field(pos[j]['year'], pos[j]['party'] + ' - ' + pos[j]['position'] + ', ' + pos[j]['municipality'] + ', ' + pos[j]['province']);
+                }
             }
-            /*
-            popupContents += field('Party', d['Party']);
-            popupContents += field('Position', d['Position'] + ', ' + d['Year']);
-            popupContents += field('Municipality/City', d['Municipality_City']);
-            popupContents += field('Province', d['Province']);
-            popupContents += field('Region', d['Region']);
-            */
+            popupContents += '<br /><br />';
+
             break;
 
         case 'lastname':
@@ -581,19 +573,18 @@ function getNodeData(event: { node: string }) {
                 popupContents += ` -${fnAttrs['label']} ${d['Last_Name']}`;
                 if (fn['fat'] == 1) popupContents += '&nbsp;<span class="fat">*</span>';
                 popupContents += '<br />';
-                for (let i = 0; i < graphData[d['Last_Name']][fnAttrs['label']].ids.length; i++) {
-                    const pos = graphData[d['Last_Name']][fnAttrs['label']].ids[i].positions;
-                    for (let j = 0; j < pos.length; j++) {
-                        if (pos[j]['municipality'] === '' || pos[j]['municipality'] === undefined) {
-                            popupContents += ` ${pos[j]['year']}: ${pos[j]['party']} - ${pos[j]['position']}, ${pos[j]['province']}<br />`;
-                        }
-                        else {
-                            popupContents += ` ${pos[j]['year']}: ${pos[j]['party']} - ${pos[j]['position']}, ${pos[j]['municipality']}, ${pos[j]['province']}<br />`;
-                        }
+
+                const pos = graphData[d['Last_Name']][fnAttrs['label']].positions;
+                for (let j = 0; j < pos.length; j++) {
+                    if (pos[j]['municipality'] === '' || pos[j]['municipality'] === undefined) {
+                        popupContents += ` ${pos[j]['year']}: ${pos[j]['party']} - ${pos[j]['position']}, ${pos[j]['province']}<br />`;
+                    }
+                    else {
+                        popupContents += ` ${pos[j]['year']}: ${pos[j]['party']} - ${pos[j]['position']}, ${pos[j]['municipality']}, ${pos[j]['province']}<br />`;
                     }
                 }
+
                 popupContents += '<br />';
-                // popupContents += ` ${fn['Position']}, ${fn['Year']}: ${fn['Municipality_City']}, ${fn['Province']}<br />`;
             }
             break;
 
