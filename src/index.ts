@@ -48,6 +48,7 @@ const regions: string[] = [
     'REGION XIII',
     'CORDILLERA ADMINISTRATIVE REGION',
     'Autonomous Region in Muslim Mindanao',
+    'Bangsamoro Autonomous Region in Muslim Mindanao',
 ];
 
 let selectedRegion: string = 'NATIONAL CAPITAL REGION';
